@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Suspense } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
+import ProductListDashboard from './components/ProductListDashboard';
+import LoadingLogo from './assets/LoadingLogo';
+import NotFoundPage from './components/NotFoundPage';
+import ProductPage from './components/ProductPage';
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+    return (
+      <BrowserRouter>
+    <div className="App">
+      <Suspense fallback={
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <LoadingLogo className="w-16 h-16 mb-4" />
+          <p className='mt-5'>Loading products...</p>
+        </div>
+      }>
+        <Routes>
+          <Route path="/" element={<ProductListDashboard />} />
+          <Route path="/products/:productId" element={<ProductPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
+    </div>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
