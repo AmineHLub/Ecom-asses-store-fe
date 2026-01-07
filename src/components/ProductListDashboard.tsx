@@ -19,6 +19,12 @@ export default function ProductListDashboard() {
     );
   };
 
+  const addToCart = (event: React.MouseEvent<HTMLButtonElement>, productId: number) => {
+    event?.stopPropagation();
+    event?.preventDefault();
+    console.log(`Added product ${productId} to cart.`);
+  }
+
   return (
     <div className="container mx-auto p-6">
       <header className="mb-10 text-center">
@@ -58,7 +64,7 @@ export default function ProductListDashboard() {
               </div>
               }
 
-              <div className="overflow-hidden rounded-2xl mb-4">
+              <div className="overflow-hidden rounded-2xl mb-4 relative">
                 <img
                   src={primaryImg}
                   alt={product.title}
@@ -68,6 +74,16 @@ export default function ProductListDashboard() {
                     transition duration-300
                   "
                 />
+                <button className={`
+                  absolute top-2 right-2 px-2 py-1 rounded-full text-[12px]
+                  font-bold backdrop-blur bg-black bg-opacity-30 text-white
+                  opacity-0 group-hover:opacity-100 transition duration-300
+                  cursor-pointer
+                `}
+                onClick={(e) => addToCart(e, product.id)}
+                >
+                  Add to Cart
+                </button>
               </div>
 
               {/* Category badge */}
