@@ -1,7 +1,7 @@
 import { use } from 'react'
-import { thenableProduct } from '../dummies/Products';
 import { useLocation, useParams } from 'react-router-dom';
 import type { Product } from '../types/Product.type';
+import { getProductById } from '../api/products';
 
 export default function ProductPage() {
   const params = useParams();
@@ -10,7 +10,7 @@ export default function ProductPage() {
 
   const productId = Number(params.productId);
 
-  const product = locationProduct ?? use(thenableProduct(productId));
+  const product = locationProduct ?? use(getProductById(productId));
 
   const generateStars = (rating: number) => {
     const full = Math.floor(rating);
