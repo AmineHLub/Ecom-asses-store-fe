@@ -38,7 +38,7 @@ export default function ProductListDashboard() {
   }) => {
     if (page) params.set("page", String(page));
     if (search || search === '') params.set("search", search);
-    if (category || category === '') params.set("category", category);
+    if (category || category === '') params.set("category", category?.toLowerCase());
 
     if (!params.get("page")) params.set("page", "1");
     navigate(`?${params.toString()}`);
